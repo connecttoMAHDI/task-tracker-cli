@@ -6,7 +6,7 @@ Sample solution for the [tasks-tracker](https://roadmap.sh/projects/task-tracker
 Clone the repository:
 
 ```bash
-git clone -b task-tracker --single-branch https://github.com/connecttoMAHDI/php-projects.git task-tracker-cli
+git clone https://github.com/connecttoMAHDI/task-tracker-cli.git
 ```
 Then navigate to the project's directory:
 ```
