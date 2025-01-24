@@ -11,6 +11,8 @@ use Enums\TaskStatus;
 
 class TaskManager
 {
+    private $tasks_path = __DIR__ . '/../tasks.json';
+
     //@desc show a list tasks - filter by status
     public function index(string|null $status): void
     {
@@ -44,7 +46,11 @@ class TaskManager
         $task = Task::createTask($description);
 
         // Load all tasks
-        $tasks = $this->loadTasks(true);
+        if (file_exists($this->tasks_path)) {
+            $tasks = $this->loadTasks(true);
+        } else {
+            $tasks = [];
+        }
 
         // Append the new task
         $tasks[] = (array) $task;
@@ -133,8 +139,8 @@ class TaskManager
     //@desc retrieve all tasks from tasks.json
     private function loadTasks(bool $assoc = false): array
     {
-        if (file_exists(__DIR__ . '/../tasks.json')) {
-            $tasksRawFile = file_get_contents(__DIR__ . '/../tasks.json');
+        if (file_exists($this->tasks_path)) {
+            $tasksRawFile = file_get_contents($this->tasks_path);
         } else {
             echo "No Tasks exist! try adding one by running:", N;
             echo "tasks-cli.php add \"description\"";
@@ -161,7 +167,7 @@ class TaskManager
             exit;
         }
 
-        $res = file_put_contents(__DIR__ . '/../tasks.json', $tasks);
+        $res = file_put_contents($this->tasks_path, $tasks);
 
         if ($res === false) {
             echo "Failed to write tasks to tasks.json.";
