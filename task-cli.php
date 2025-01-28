@@ -7,7 +7,7 @@ require_once __DIR__ . '/constants.php';
 use Controllers\TaskManager;
 use Enums\Commands;
 
-$command = $argv[1];
+$command = $argv[1] ?? null;
 $args = array_slice($argv, 2);
 $taskManager = new TaskManager();
 
@@ -33,45 +33,45 @@ function help()
 }
 
 switch ($command) {
-    case Commands::$add:
+    case Commands::ADD:
         $description = $args[0] ?? null;
         if ($description) {
             $taskManager->store($description);
         } else {
-            echo "{description} is required and must be string.", N;
-            echo "Usage: task-cli.php add \"description\"";
+            echo "Please provide a [description] for the task.", N;
+            echo "Usage: task-cli.php add \"description\"", N;
         }
         break;
-    case Commands::$update:
+    case Commands::UPDATE:
         $id = $args[0] ?? null;
         $description = $args[1] ?? null;
         if ($id && $description) {
             $taskManager->update($id, $description);
         } else {
-            echo "{id} & {description} are required.", N;
-            echo "Usage: task-cli.php update {id} \"description\"";
+            echo "Please specify the {id} and the new [description] for the task.", N;
+            echo "Usage: task-cli.php update {id} \"description\"", N;
         }
         break;
-    case Commands::$delete:
+    case Commands::DELETE:
         $id = $args[0] ?? null;
         if ($id) {
             $taskManager->delete($id);
         } else {
-            echo "{id} is required.", N;
-            echo "Usage: task-cli.php delete {id}";
+            echo "Please specify the {id} of the task to delete.", N;
+            echo "Usage: task-cli.php delete {id}", N;
         }
         break;
-    case Commands::$mark:
+    case Commands::MARK:
         $id = $args[0] ?? null;
         $status = $args[1] ?? null;
         if ($status) {
             $taskManager->mark($id, $status);
         } else {
-            echo "{id} & {status} are required.", N;
-            echo "Usage: task-cli.php mark {id} [todo|done|in-progress]";
+            echo "Please specify the {id} and the {status} for the task.", N;
+            echo "Usage: task-cli.php mark {id} [todo|done|in-progress]", N;
         }
         break;
-    case Commands::$list:
+    case Commands::LIST:
         $status = $args[0] ?? null;
         $taskManager->index($status);
         break;
@@ -80,5 +80,5 @@ switch ($command) {
         break;
     default:
         echo "Unknown command. Type '--help' for options.", N;
-        echo "Usage: tasks-cli.php [command] [arguments]";
+        echo "Usage: tasks-cli.php {command} [arguments]";
 }

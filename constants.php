@@ -1,3 +1,3 @@
 <?php
 
-const N = "\n";
+const N = "\r\n";

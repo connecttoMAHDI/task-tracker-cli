@@ -4,9 +4,9 @@ namespace Enums;
 
 class Commands
 {
-    public static $add = 'add';
-    public static $update = 'update';
-    public static $delete = 'delete';
-    public static $mark = 'mark';
-    public static $list = 'list';
+    public const ADD = 'add';
+    public const UPDATE = 'update';
+    public const DELETE = 'delete';
+    public const MARK = 'mark';
+    public const LIST = 'list';
 }
